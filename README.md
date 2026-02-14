@@ -1,135 +1,101 @@
-# Turborepo starter
+# PTE & IELTS Practice Portal
 
-This Turborepo starter is maintained by the Turborepo core team.
+A comprehensive prep platform for PTE and IELTS exams, built contributing to a modern monorepo structure.
 
-## Using this example
+## 🏗️ Tech Stack
 
-Run the following command:
+- **Monorepo Manager:** [Turborepo](https://turbo.build/)
+- **Frontend (Student Portal):** [Next.js 16](https://nextjs.org/) (React 19)
+- **Backend (API):** [NestJS 11](https://nestjs.com/)
+- **Database:** [PostgreSQL](https://www.postgresql.org/) (via [Supabase](https://supabase.com/))
+- **ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+- **Styling:** CSS Modules / Tailwind (where applicable)
+- **Language:** TypeScript 100%
 
-```sh
-npx create-turbo@latest
+## 📂 Project Structure
+
+```text
+├── apps/
+│   ├── web-student/     # Next.js student-facing application
+│   └── api-server/      # NestJS backend API
+└── packages/
+    ├── database/        # Shared Drizzle schema, client, and seeds
+    ├── ui/              # Shared React UI components
+    ├── typescript-config/ # Shared TS configurations
+    └── eslint-config/   # Shared ESLint configurations
 ```
 
-## What's inside?
+## 🧩 Key Features
 
-This Turborepo includes the following packages/apps:
+- **Multi-Tenant Architecture:** Supports multiple institutions/tenants.
+- **User Roles:** Student, Teacher, Admin.
+- **Exam Engine:** Support for PTE and IELTS exam structures.
+  - Sections, Questions, Item Types (Read Aloud, Essay, etc.).
+  - Scouting & Rubrics.
+- **Assessment:**
+  - Full Mock Tests & Practice Sessions.
+  - AI-based Feedback & Scoring (placeholder/planned).
+  - Detailed Scoring Breakdowns (Communicative & Enabling Skills).
 
-### Apps and Packages
+## 🚀 Getting Started
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+### Prerequisites
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- Node.js (v20+ recommended)
+- npm, pnpm, or yarn
+- PostgreSQL database (Supabase recommended)
 
-### Utilities
+### Installation
 
-This Turborepo has some additional tools already setup for you:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository-url>
+    cd pte_portal
+    ```
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    pnpm install
+    ```
 
-### Build
+### Environment Setup
 
-To build all apps and packages, run the following command:
+Create `.env` files in the respective application directories:
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+**`apps/api-server/.env` & `packages/database/.env`**
+```env
+DATABASE_URL=postgres://user:pass@host:5432/db
+# Add other necessary env vars
 ```
 
-### Develop
+### Running the Project
 
-To develop all apps and packages, run the following command:
+To run the entire stack (Frontend + Backend) in development mode:
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
+```bash
 npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- **Web Student:** [http://localhost:3000](http://localhost:3000)
+- **API Server:** [http://localhost:3001](http://localhost:3001) (or configured port)
 
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+### Database Management
 
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+The `packages/database` folder contains the Drizzle schema and migrations.
 
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+**Seed the database:**
+```bash
+npm run seed --workspace=@repo/database
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## 🛠️ Development
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+- **Build:** `npx turbo build`
+- **Lint:** `npx turbo lint`
+- **Type Check:** `npx turbo check-types`
 
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
+## 🤝 Contributing
 
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+This project uses Turborepo. Development is streamlined to cache builds and checks. Ensure you follow the linting rules and commit messages.
